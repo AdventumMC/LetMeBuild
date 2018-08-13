@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
  *
  * @author Sébastien (Shyrogan)
  */
-@HookManifest(name = "AreaShop", mainClass = "com.sk89q.worldguard.bukkit.WorldGuardPlugin")
+@HookManifest(name = "WorldGuard", mainClass = "com.sk89q.worldguard.bukkit.WorldGuardPlugin")
 public final class WorldGuardHook extends LMBHook {
 
     @EventHandler
