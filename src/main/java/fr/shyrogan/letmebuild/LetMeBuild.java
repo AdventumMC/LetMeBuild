@@ -39,6 +39,9 @@ public final class LetMeBuild extends JavaPlugin {
         // Load our plugin's instance.
         instance = this;
 
+        // Default config
+        saveDefaultConfig();
+
         // Base hooks
         registerHook(WorldGuardHook.class);
 
