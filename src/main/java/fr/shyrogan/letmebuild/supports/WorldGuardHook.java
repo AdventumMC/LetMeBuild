@@ -3,9 +3,9 @@ package fr.shyrogan.letmebuild.supports;
 import com.sk89q.worldedit.Vector;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.managers.RegionManager;
-import com.sk89q.worldguard.protection.regions.ProtectedRegion;
 import fr.shyrogan.letmebuild.hook.LMBHook;
 import fr.shyrogan.letmebuild.hook.annotations.HookManifest;
+import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 
@@ -23,12 +23,15 @@ public final class WorldGuardHook extends LMBHook {
         final WorldGuardPlugin wg = WorldGuardPlugin.inst();
         final RegionManager rm = wg.getRegionManager(e.getTo().getWorld());
 
+        if(e.getPlayer().getGameMode() == GameMode.CREATIVE || e.getPlayer().getGameMode() == GameMode.SPECTATOR) {
+            return;
+        }
+
         // If he is a member, we allow flying, else we don't allow him.
         e.getPlayer().setAllowFlight(
                 rm.getApplicableRegions(new Vector(e.getTo().getX(), e.getTo().getY(), e.getTo().getZ())).getRegions()
                         .stream()
-                        .map(ProtectedRegion::getMembers)
-                        .anyMatch(defaultDomain -> defaultDomain.contains(e.getPlayer().getUniqueId()))
+                        .anyMatch(protectedRegion -> protectedRegion.getMembers().contains(e.getPlayer().getUniqueId()) || protectedRegion.getOwners().contains(e.getPlayer().getUniqueId()))
         );
     }
 
