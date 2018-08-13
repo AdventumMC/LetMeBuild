@@ -1,9 +1,13 @@
 package fr.shyrogan.letmebuild;
 
 import fr.shyrogan.letmebuild.hook.LMBHook;
+import fr.shyrogan.letmebuild.supports.WorldGuardHook;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -20,6 +24,8 @@ public final class LetMeBuild extends JavaPlugin {
     // A simple instance
     private static LetMeBuild instance;
 
+    // Just storing future hooks class.
+    private final List<Class<? extends LMBHook>> toLoad = new LinkedList<>();
     // Our Hooks cache.
     private final Map<Class<? extends LMBHook>, LMBHook> hooks = new LinkedHashMap<>();
 
@@ -33,9 +39,35 @@ public final class LetMeBuild extends JavaPlugin {
         // Load our plugin's instance.
         instance = this;
 
+        // Base hooks
+        registerHook(WorldGuardHook.class);
+
+        // Disabled
+        List<String> disabled = (List<String>)getConfig().getList("disabled");
+
         // Load our hooks at the first server's tick, allowing us to load them after each plugins.
         getServer().getScheduler().runTaskLaterAsynchronously(this, () -> {
+            // Instantiate our hooks.
+            toLoad.forEach(hookClass -> {
+                try {
+                    LMBHook hook = hookClass.newInstance();
+                    if(disabled.stream().anyMatch(s -> s.equalsIgnoreCase(hook.getName()))) {
+                        return;
+                    }
 
+                    this.hooks.put(hookClass, hook);
+                    getLogger().info("Registered Hook for " + hook.getName());
+                } catch (ReflectiveOperationException e) {
+                    e.printStackTrace();
+                }
+            });
+
+            // Load each hooks
+            hooks.values().forEach(LMBHook::load);
+            // Remove hook if supported plugin is not present.
+            hooks.entrySet().removeIf(entry -> !entry.getValue().isReady());
+            // Register Listeners.
+            hooks.values().forEach(this::registerListener);
         }, 1L);
     }
 
@@ -45,13 +77,23 @@ public final class LetMeBuild extends JavaPlugin {
     }
 
     /**
+     * Returns LetMeBuild instance allowing to operate from
+     * an external plugin.
+     *
+     * @return Instance
+     */
+    public static LetMeBuild getInstance() {
+        return instance;
+    }
+
+    /**
      * Register a new LetMeBuild's hook into LMB's hooks cache.
      *
      * @param hook Hook's instance
      * @param <T> Hook's type.
      */
-    public <T extends LMBHook> void registerHook(T hook) {
-        hooks.put(hook.getClass(), hook);
+    public <T extends LMBHook> void registerHook(Class<T> hook) {
+        toLoad.add(hook);
     }
 
     /**
@@ -63,6 +105,15 @@ public final class LetMeBuild extends JavaPlugin {
      */
     public <T extends LMBHook> T getHook(Class<T> hookClass) {
         return (T)hooks.get(hookClass);
+    }
+
+    /**
+     * Method used to register Listener.
+     *
+     * @param l Listener
+     */
+    private void registerListener(Listener l) {
+        getServer().getPluginManager().registerEvents(l, this);
     }
 
 }

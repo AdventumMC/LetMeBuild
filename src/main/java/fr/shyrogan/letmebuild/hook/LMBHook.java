@@ -2,6 +2,7 @@ package fr.shyrogan.letmebuild.hook;
 
 import fr.shyrogan.letmebuild.hook.annotations.HookManifest;
 import fr.shyrogan.letmebuild.hook.exceptions.IncompleteLMBHookException;
+import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 
 /**
@@ -15,7 +16,7 @@ import org.bukkit.event.Listener;
  */
 public abstract class LMBHook implements Listener {
 
-    private final String name;
+    private final String name, mainClass;
     private boolean ready = false;
 
     /**
@@ -32,11 +33,14 @@ public abstract class LMBHook implements Listener {
 
         HookManifest hm = getClass().getAnnotation(HookManifest.class);
         this.name = hm.name();
+        this.mainClass = hm.mainClass();
+    }
 
+    public void load() {
         // Checks if plugin's main class is present.
         try {
-            Class.forName(hm.mainClass());
-            ready = true;
+            Class.forName(mainClass);
+            ready = Bukkit.getPluginManager().getPlugin(name) != null;
         } catch (ClassNotFoundException e) {
             ready = false;
         }
@@ -49,5 +53,14 @@ public abstract class LMBHook implements Listener {
      */
     public boolean isReady() {
         return ready;
+    }
+
+    /**
+     * Returns Hook plugin's name.
+     *
+     * @return Plugin's name.
+     */
+    public String getName() {
+        return name;
     }
 }
