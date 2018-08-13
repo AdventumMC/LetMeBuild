@@ -1,0 +1,4 @@
+# Disable LetMeBuild features for a specific plugin.
+# For example, if you want to disable it for AreaShop, just add "AreaShop" to the list.
+disabled:
+  - "Example"
