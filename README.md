@@ -12,9 +12,10 @@ Thank you for using our plugin and go check our [GitHub](https://github.com/Adve
 Normally made for [Adventum](https://adventum.fr). We do think this can be useful to Spigot's community. That's the reason why we share this plugin, if you want to contribute, you're welcome !
 
 _**Supported plugins list:**_
-1. WorldGuard
+1. [WorldGuard](https://dev.bukkit.org/projects/worldguard)
    * Guilds, AreaShop... (Every plugins depending of WorldGuard).
-   * Your plugin? Ask us on our [Discord](https://discord.gg/ZQbz3RF) !
+2. [RedProtect](https://www.spigotmc.org/resources/redprotect-for-all-versions-anti-grief-server-protection.15841/)
+3. Your plugin? Ask us on our [Discord](https://discord.gg/ZQbz3RF) !
 
 
 # Getting started
