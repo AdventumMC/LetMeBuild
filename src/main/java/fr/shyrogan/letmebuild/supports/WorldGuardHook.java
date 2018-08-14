@@ -30,12 +30,20 @@ public final class WorldGuardHook extends LMBHook {
             return;
         }
 
+        boolean fly = rm.getApplicableRegions(new Vector(e.getTo().getX(), e.getTo().getY(), e.getTo().getZ()))
+                .getRegions()
+                .stream()
+                .anyMatch(protectedRegion -> {
+                    if(protectedRegion.getMembers().contains(e.getPlayer().getUniqueId()) || protectedRegion.getOwners().contains(e.getPlayer().getUniqueId())) {
+                        return true;
+                    }
+
+                    // Checking through Username because of outdated plugins :(
+                    return protectedRegion.getMembers().contains(e.getPlayer().getName()) || protectedRegion.getOwners().contains(e.getPlayer().getName());
+                });
+
         // If he is a member, we allow flying, else we don't allow him.
-        e.getPlayer().setAllowFlight(
-                rm.getApplicableRegions(new Vector(e.getTo().getX(), e.getTo().getY(), e.getTo().getZ())).getRegions()
-                        .stream()
-                        .anyMatch(protectedRegion -> protectedRegion.getMembers().contains(e.getPlayer().getUniqueId()) || protectedRegion.getOwners().contains(e.getPlayer().getUniqueId()))
-        );
+        e.getPlayer().setAllowFlight(fly);
     }
 
 }
