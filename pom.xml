@@ -90,6 +90,7 @@
         <dependency>
             <groupId>br.net.fabiozumbi12.RedProtect.Bukkit</groupId>
             <artifactId>RedProtect</artifactId>
+            <version>7.5.2</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/libs/RedProtect-7.5.2-b116-Universal.jar</systemPath>
         </dependency>
