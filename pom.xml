@@ -6,7 +6,7 @@
 
     <groupId>fr.shyrogan</groupId>
     <artifactId>LetMeBuild</artifactId>
-    <version>1.0</version>
+    <version>1.1</version>
     <packaging>jar</packaging>
 
     <name>LetMeBuild</name>
