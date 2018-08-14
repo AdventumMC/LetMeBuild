@@ -1,6 +1,7 @@
 package fr.shyrogan.letmebuild;
 
 import fr.shyrogan.letmebuild.hook.LMBHook;
+import fr.shyrogan.letmebuild.supports.RedProtectHook;
 import fr.shyrogan.letmebuild.supports.WorldGuardHook;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -44,6 +45,7 @@ public final class LetMeBuild extends JavaPlugin {
 
         // Base hooks
         registerHook(WorldGuardHook.class);
+        registerHook(RedProtectHook.class);
 
         // Disabled
         List<String> disabled = (List<String>)getConfig().getList("disabled");
