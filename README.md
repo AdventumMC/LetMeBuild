@@ -14,6 +14,7 @@ Normally made for [Adventum](https://adventum.fr). We do think this can be usefu
 _**Supported plugins list:**_
 1. WorldGuard
    * Guilds, AreaShop... (Every plugins depending of WorldGuard).
+   * Your plugin? Ask us on our [Discord](https://discord.gg/ZQbz3RF) !
 
 
 # Getting started
