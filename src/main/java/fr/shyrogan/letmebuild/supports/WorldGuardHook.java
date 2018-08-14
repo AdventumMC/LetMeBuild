@@ -26,7 +26,7 @@ public final class WorldGuardHook extends LMBHook {
         final WorldGuardPlugin wg = WorldGuardPlugin.inst();
         final RegionManager rm = wg.getRegionManager(e.getTo().getWorld());
 
-        if(e.getPlayer().getGameMode() == GameMode.CREATIVE || e.getPlayer().getGameMode() == GameMode.SPECTATOR) {
+        if(e.getPlayer().getGameMode() == GameMode.CREATIVE || e.getPlayer().getGameMode() == GameMode.SPECTATOR || e.getPlayer().hasPermission("letmebuild.bypass") || e.getPlayer().hasPermission("lmb.bypass")) {
             return;
         }
 
