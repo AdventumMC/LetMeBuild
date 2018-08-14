@@ -7,6 +7,7 @@ import fr.shyrogan.letmebuild.hook.LMBHook;
 import fr.shyrogan.letmebuild.hook.annotations.HookManifest;
 import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 /**
@@ -18,7 +19,9 @@ import org.bukkit.event.player.PlayerMoveEvent;
 @HookManifest(name = "WorldGuard", mainClass = "com.sk89q.worldguard.bukkit.WorldGuardPlugin")
 public final class WorldGuardHook extends LMBHook {
 
-    @EventHandler
+    @EventHandler(
+            priority = EventPriority.MONITOR
+    )
     public void onMove(PlayerMoveEvent e) {
         final WorldGuardPlugin wg = WorldGuardPlugin.inst();
         final RegionManager rm = wg.getRegionManager(e.getTo().getWorld());
