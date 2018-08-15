@@ -15,7 +15,11 @@ public final class FallDamageListener implements Listener {
     @EventHandler
     public void onDamage(EntityDamageEvent e) {
         if(e.getEntity().getType() == EntityType.PLAYER && e.getCause() == EntityDamageEvent.DamageCause.FALL) {
-            e.setCancelled(LMBHook.getFallingPlayers().contains((Player)e.getEntity()));
+            Player p = (Player)e.getEntity();
+            if(LMBHook.getFallingPlayers().contains(p)) {
+                e.setCancelled(true);
+                LMBHook.getFallingPlayers().remove(p);
+            }
         }
     }
 
