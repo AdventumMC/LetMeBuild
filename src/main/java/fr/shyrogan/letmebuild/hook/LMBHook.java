@@ -93,7 +93,14 @@ public abstract class LMBHook implements Listener {
             if(!fly && !player.isOnGround()) {
                 getFallingPlayers().add(player);
             }
+        } else {
+            if(getFallingPlayers().contains(player)) {
+                if(player.isOnGround()) {
+                    getFallingPlayers().remove(player);
+                }
+            }
         }
+
         player.setAllowFlight(fly);
     }
 

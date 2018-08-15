@@ -18,7 +18,6 @@ public final class FallDamageListener implements Listener {
             Player p = (Player)e.getEntity();
             if(LMBHook.getFallingPlayers().contains(p)) {
                 e.setCancelled(true);
-                LMBHook.getFallingPlayers().remove(p);
             }
         }
     }
