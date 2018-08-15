@@ -1,6 +1,7 @@
 package fr.shyrogan.letmebuild;
 
 import fr.shyrogan.letmebuild.hook.LMBHook;
+import fr.shyrogan.letmebuild.listener.FallDamageListener;
 import fr.shyrogan.letmebuild.supports.GriefPreventionHook;
 import fr.shyrogan.letmebuild.supports.RedProtectHook;
 import fr.shyrogan.letmebuild.supports.WorldGuardHook;
@@ -79,6 +80,8 @@ public final class LetMeBuild extends JavaPlugin {
                 registerListener(hook);
             });
         }, 1L);
+
+        registerListener(new FallDamageListener());
     }
 
     @Override

@@ -43,7 +43,7 @@ public final class WorldGuardHook extends LMBHook {
                 });
 
         // If he is a member, we allow flying, else we don't allow him.
-        e.getPlayer().setAllowFlight(fly);
+        allowFly(e.getPlayer(), fly);
     }
 
 }

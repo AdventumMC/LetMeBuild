@@ -3,7 +3,11 @@ package fr.shyrogan.letmebuild.hook;
 import fr.shyrogan.letmebuild.hook.annotations.HookManifest;
 import fr.shyrogan.letmebuild.hook.exceptions.IncompleteLMBHookException;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * This simple class is made to know if a plugin if present.
@@ -15,6 +19,18 @@ import org.bukkit.event.Listener;
  * @author Sébastien (Shyrogan)
  */
 public abstract class LMBHook implements Listener {
+
+    private static List<Player> fallingPlayers = new LinkedList<>();
+
+    /**
+     * A list containing players which are not flying anymore to
+     * avoid fall damage.
+     *
+     * @return Falling players
+     */
+    public static List<Player> getFallingPlayers() {
+        return fallingPlayers;
+    }
 
     private final String name, mainClass;
     private boolean ready = false;
@@ -63,4 +79,22 @@ public abstract class LMBHook implements Listener {
     public String getName() {
         return name;
     }
+
+    /**
+     * Allows a player to fly or disallow.
+     * If it disallows when he was allowed, cancel his fall damage.
+     *
+     * @param player Player
+     * @param fly Boolean
+     */
+    protected void allowFly(Player player, boolean fly) {
+        // Player was flying.
+        if(player.getAllowFlight()) {
+            if(!fly && !player.isOnGround()) {
+                getFallingPlayers().add(player);
+            }
+        }
+        player.setAllowFlight(fly);
+    }
+
 }

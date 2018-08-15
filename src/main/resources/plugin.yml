@@ -1,5 +1,5 @@
 name: LetMeBuild
-version: "1.2"
+version: "1.3"
 main: fr.shyrogan.letmebuild.LetMeBuild
 authors: [Shyrogan]
 description: Small plugin allowing a claim owner or member to fly inside of the land.

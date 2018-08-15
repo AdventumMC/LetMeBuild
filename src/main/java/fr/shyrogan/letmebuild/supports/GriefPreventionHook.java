@@ -30,7 +30,7 @@ public final class GriefPreventionHook extends LMBHook {
 
         // Is this plugin a trashcan?...
         Claim claim = GriefPrevention.instance.dataStore.getClaimAt(e.getTo(), true, null);
-        p.setAllowFlight((claim != null && claim.canSiege(e.getPlayer())));
+        allowFly(p, (claim != null && claim.canSiege(e.getPlayer())));
     }
 
 }

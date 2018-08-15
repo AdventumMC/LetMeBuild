@@ -23,7 +23,7 @@ public final class RedProtectHook extends LMBHook {
             return;
         }
 
-        p.setAllowFlight(e.getEnteredRegion().isMember(e.getPlayer()) || e.getEnteredRegion().isAdmin(e.getPlayer()) || e.getEnteredRegion().isLeader(e.getPlayer()));
+        allowFly(p, e.getEnteredRegion().isMember(e.getPlayer()) || e.getEnteredRegion().isAdmin(e.getPlayer()) || e.getEnteredRegion().isLeader(e.getPlayer()));
     }
 
 }
