@@ -15,7 +15,8 @@ _**Supported plugins list:**_
 1. [WorldGuard](https://dev.bukkit.org/projects/worldguard)
    * Guilds, AreaShop... (Every plugins depending of WorldGuard).
 2. [RedProtect](https://www.spigotmc.org/resources/redprotect-for-all-versions-anti-grief-server-protection.15841/)
-3. Your plugin? Ask us on our [Discord](https://discord.gg/ZQbz3RF) !
+3. [GriefPrevention](https://github.com/TechFortress/GriefPrevention/)
+4. Your plugin? Ask us on our [Discord](https://discord.gg/ZQbz3RF) !
 
 
 # Getting started
