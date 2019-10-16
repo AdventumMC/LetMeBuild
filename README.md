@@ -6,7 +6,7 @@
 LetMeBuild is a plugin allowing members of a WorldGuard region to fly inside of it.
 We're also looking for more compatibility, contact me on Discord if you want to see a plugin added inside of our **supported plugins** list.
 
-Thank you for using our plugin and go check our [GitHub](https://github.com/AdventumMC) for more plugins made by Adventum's team !
+Thank you for using our plugin and go check our [GitHub](https://github.com/Shyrogan) for more plugins made by Adventum's team !
 
 ### Our project
 Normally made for [Adventum](https://adventum.fr). We do think this can be useful to Spigot's community. That's the reason why we share this plugin, if you want to contribute, you're welcome !
@@ -16,7 +16,8 @@ _**Supported plugins list:**_
    * Guilds, AreaShop... (Every plugins depending of WorldGuard).
 2. [RedProtect](https://www.spigotmc.org/resources/redprotect-for-all-versions-anti-grief-server-protection.15841/)
 3. [GriefPrevention](https://github.com/TechFortress/GriefPrevention/)
-4. Your plugin? Ask us on our [Discord](https://discord.gg/ZQbz3RF) !
+4. [Towny](https://github.com/TownyAdvanced/Towny)
+5. Your plugin? Ask us on Discord @Shyrogan#2938 !
 
 
 # Getting started

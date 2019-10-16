@@ -1,13 +1,15 @@
 package fr.shyrogan.letmebuild.hook;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import fr.shyrogan.letmebuild.hook.annotations.HookManifest;
 import fr.shyrogan.letmebuild.hook.exceptions.IncompleteLMBHookException;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This simple class is made to know if a plugin if present.
@@ -20,7 +22,9 @@ import java.util.List;
  */
 public abstract class LMBHook implements Listener {
 
-    private static List<Player> fallingPlayers = new LinkedList<>();
+    private static Cache<Player, Boolean> fallingPlayers = CacheBuilder.newBuilder()
+            .expireAfterWrite(5L, TimeUnit.SECONDS)
+            .build();
 
     /**
      * A list containing players which are not flying anymore to
@@ -28,7 +32,7 @@ public abstract class LMBHook implements Listener {
      *
      * @return Falling players
      */
-    public static List<Player> getFallingPlayers() {
+    public static Cache<Player, Boolean> getFallingPlayers() {
         return fallingPlayers;
     }
 
@@ -91,13 +95,18 @@ public abstract class LMBHook implements Listener {
         // Player was flying.
         if(player.getAllowFlight()) {
             if(!fly && !player.isOnGround()) {
-                getFallingPlayers().add(player);
+                getFallingPlayers().put(player, false);
             }
         } else {
-            if(getFallingPlayers().contains(player)) {
-                if(player.isOnGround()) {
-                    getFallingPlayers().remove(player);
-                }
+            Boolean wasOnGround = getFallingPlayers().getIfPresent(player);
+            if(wasOnGround == null)
+                return;
+
+            if(player.isOnGround()) {
+                if(!wasOnGround)
+                    getFallingPlayers().put(player, true);
+                else
+                    getFallingPlayers().invalidate(player);
             }
         }
 
